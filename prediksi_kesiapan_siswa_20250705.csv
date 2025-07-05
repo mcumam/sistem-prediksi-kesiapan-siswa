@@ -1,0 +1,6 @@
+name,age,gender,father_education,mother_education,paud_experience,prediction,readiness_level,timestamp
+umam,6.0 tahun,P,SD,SD,Ya,75.0,Cukup Siap,2025-07-05 01:48:42
+ndi,6.0 tahun,P,SD,SD,Tidak,65.0,Belum Siap,2025-07-05 01:49:48
+ndi,6.0 tahun,P,S1,SD,Tidak,65.0,Belum Siap,2025-07-05 01:49:54
+ndi,6.0 tahun,P,S1,SD,Tidak,65.0,Belum Siap,2025-07-05 01:49:56
+ndi,6.0 tahun,P,S1,S1,Tidak,85.0,Siap,2025-07-05 01:49:59
