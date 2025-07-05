@@ -1,0 +1,249 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Data Analytics - Sistem Prediksi Kesiapan Siswa</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        body {
+            font-family: 'Poppins', sans-serif;
+        }
+        .logo-education {
+            width: 80px;
+            height: 80px;
+            object-fit: contain;
+        }
+    </style>
+</head>
+<body class="bg-gradient-to-br from-blue-900 to-indigo-800 min-h-screen">
+    <!-- Header -->
+    <header class="bg-blue-900 text-white py-4 border-b border-blue-700">
+        <div class="container mx-auto px-4 flex justify-between items-center">
+            <div class="flex items-center space-x-4">
+                <img src="https://adp.fkip.uns.ac.id/wp-content/uploads/2021/07/logo_putih.png" alt="UNS Logo" class="logo-education">
+                <div>
+                    <h1 class="text-2xl font-bold">Sistem Prediksi Enterprise</h1>
+                    <h1 class="text-2xl font-bold">Kesiapan Siswa</h1>
+                </div>
+            </div>
+            <div class="flex space-x-4">
+                <a href="/predictor" 
+                   class="bg-indigo-600 hover:bg-indigo-700 text-white font-bold py-2 px-4 rounded transition duration-150">
+                    Predictor
+                </a>
+                <a href="/logout" 
+                   class="bg-red-600 hover:bg-red-700 text-white font-bold py-2 px-4 rounded transition duration-150">
+                    Logout
+                </a>
+            </div>
+        </div>
+    </header>
+
+    <div class="container mx-auto px-4 py-8">
+        <div class="max-w-6xl mx-auto bg-white rounded-xl shadow-xl overflow-hidden p-8">
+            <h1 class="text-3xl font-bold text-center text-gray-800 mb-8">
+                Data Analytics & Insights
+            </h1>
+            
+            <!-- Statistics Cards -->
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 mb-8">
+                <div class="bg-gradient-to-r from-blue-500 to-blue-600 rounded-lg p-6 text-white">
+                    <div class="flex items-center">
+                        <div class="flex-1">
+                            <h3 class="text-lg font-semibold">Total Prediksi</h3>
+                            <p class="text-3xl font-bold" id="total-predictions">0</p>
+                        </div>
+                        <div class="w-12 h-12 bg-blue-400 rounded-full flex items-center justify-center">
+                            <svg class="w-6 h-6" fill="currentColor" viewBox="0 0 20 20">
+                                <path d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"/>
+                            </svg>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="bg-gradient-to-r from-green-500 to-green-600 rounded-lg p-6 text-white">
+                    <div class="flex items-center">
+                        <div class="flex-1">
+                            <h3 class="text-lg font-semibold">Siswa Siap</h3>
+                            <p class="text-3xl font-bold" id="ready-students">0</p>
+                        </div>
+                        <div class="w-12 h-12 bg-green-400 rounded-full flex items-center justify-center">
+                            <svg class="w-6 h-6" fill="currentColor" viewBox="0 0 20 20">
+                                <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd"/>
+                            </svg>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="bg-gradient-to-r from-yellow-500 to-yellow-600 rounded-lg p-6 text-white">
+                    <div class="flex items-center">
+                        <div class="flex-1">
+                            <h3 class="text-lg font-semibold">Cukup Siap</h3>
+                            <p class="text-3xl font-bold" id="moderate-students">0</p>
+                        </div>
+                        <div class="w-12 h-12 bg-yellow-400 rounded-full flex items-center justify-center">
+                            <svg class="w-6 h-6" fill="currentColor" viewBox="0 0 20 20">
+                                <path fill-rule="evenodd" d="M8.257 3.099c.765-1.36 2.722-1.36 3.486 0l5.58 9.92c.75 1.334-.213 2.98-1.742 2.98H4.42c-1.53 0-2.493-1.646-1.743-2.98l5.58-9.92zM11 13a1 1 0 11-2 0 1 1 0 012 0zm-1-8a1 1 0 00-1 1v3a1 1 0 002 0V6a1 1 0 00-1-1z" clip-rule="evenodd"/>
+                            </svg>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="bg-gradient-to-r from-red-500 to-red-600 rounded-lg p-6 text-white">
+                    <div class="flex items-center">
+                        <div class="flex-1">
+                            <h3 class="text-lg font-semibold">Belum Siap</h3>
+                            <p class="text-3xl font-bold" id="not-ready-students">0</p>
+                        </div>
+                        <div class="w-12 h-12 bg-red-400 rounded-full flex items-center justify-center">
+                            <svg class="w-6 h-6" fill="currentColor" viewBox="0 0 20 20">
+                                <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zM8.707 7.293a1 1 0 00-1.414 1.414L8.586 10l-1.293 1.293a1 1 0 101.414 1.414L10 11.414l1.293 1.293a1 1 0 001.414-1.414L11.414 10l1.293-1.293a1 1 0 00-1.414-1.414L10 8.586 8.707 7.293z" clip-rule="evenodd"/>
+                            </svg>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Charts Section -->
+            <div class="grid grid-cols-1 lg:grid-cols-2 gap-8 mb-8">
+                <div class="bg-gray-50 rounded-lg p-6">
+                    <h3 class="text-xl font-semibold text-gray-800 mb-4">Distribusi Kesiapan Siswa</h3>
+                    <canvas id="readinessChart" width="400" height="300"></canvas>
+                </div>
+
+                <div class="bg-gray-50 rounded-lg p-6">
+                    <h3 class="text-xl font-semibold text-gray-800 mb-4">Distribusi Berdasarkan Usia</h3>
+                    <canvas id="ageChart" width="400" height="300"></canvas>
+                </div>
+            </div>
+
+            <!-- Recent Predictions Table -->
+            <div class="bg-gray-50 rounded-lg p-6">
+                <h3 class="text-xl font-semibold text-gray-800 mb-4">Prediksi Terbaru</h3>
+                <div class="overflow-x-auto">
+                    <table class="min-w-full bg-white rounded-lg overflow-hidden">
+                        <thead class="bg-gray-100">
+                            <tr>
+                                <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Nama</th>
+                                <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Usia</th>
+                                <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Skor</th>
+                                <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Status</th>
+                                <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Waktu</th>
+                            </tr>
+                        </thead>
+                        <tbody id="predictions-table" class="bg-white divide-y divide-gray-200">
+                            <!-- Data will be populated by JavaScript -->
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+        
+        <!-- Managed By text -->
+        <div class="text-center mt-4">
+            <p class="text-xs text-white">Managed By Universitas Sebelas Maret</p>
+        </div>
+    </div>
+
+    <script>
+        // Sample data - in a real application, this would come from the backend
+        const sampleData = {
+            totalPredictions: 25,
+            readyStudents: 15,
+            moderateStudents: 6,
+            notReadyStudents: 4,
+            recentPredictions: [
+                { name: "Ahmad Rizki", age: "5.5 tahun", score: 85, status: "Siap", time: "2024-01-15 10:30" },
+                { name: "Siti Nurhaliza", age: "5.0 tahun", score: 65, status: "Belum Siap", time: "2024-01-15 10:25" },
+                { name: "Budi Santoso", age: "6.0 tahun", score: 85, status: "Siap", time: "2024-01-15 10:20" },
+                { name: "Dewi Putri", age: "5.0 tahun", score: 65, status: "Belum Siap", time: "2024-01-15 10:15" },
+                { name: "Eko Prasetyo", age: "6.5 tahun", score: 85, status: "Siap", time: "2024-01-15 10:10" }
+            ]
+        };
+
+        // Update statistics
+        document.getElementById('total-predictions').textContent = sampleData.totalPredictions;
+        document.getElementById('ready-students').textContent = sampleData.readyStudents;
+        document.getElementById('moderate-students').textContent = sampleData.moderateStudents;
+        document.getElementById('not-ready-students').textContent = sampleData.notReadyStudents;
+
+        // Populate recent predictions table
+        const tableBody = document.getElementById('predictions-table');
+        sampleData.recentPredictions.forEach(prediction => {
+            const row = document.createElement('tr');
+            const statusClass = prediction.status === 'Siap' ? 'text-green-600' : 
+                               prediction.status === 'Cukup Siap' ? 'text-yellow-600' : 'text-red-600';
+            
+            row.innerHTML = `
+                <td class="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900">${prediction.name}</td>
+                <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">${prediction.age}</td>
+                <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">${prediction.score}</td>
+                <td class="px-6 py-4 whitespace-nowrap text-sm font-medium ${statusClass}">${prediction.status}</td>
+                <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">${prediction.time}</td>
+            `;
+            tableBody.appendChild(row);
+        });
+
+        // Create readiness distribution chart
+        const readinessCtx = document.getElementById('readinessChart').getContext('2d');
+        new Chart(readinessCtx, {
+            type: 'doughnut',
+            data: {
+                labels: ['Siap', 'Cukup Siap', 'Belum Siap'],
+                datasets: [{
+                    data: [sampleData.readyStudents, sampleData.moderateStudents, sampleData.notReadyStudents],
+                    backgroundColor: ['#10B981', '#F59E0B', '#EF4444'],
+                    borderWidth: 2,
+                    borderColor: '#ffffff'
+                }]
+            },
+            options: {
+                responsive: true,
+                maintainAspectRatio: false,
+                plugins: {
+                    legend: {
+                        position: 'bottom'
+                    }
+                }
+            }
+        });
+
+        // Create age distribution chart
+        const ageCtx = document.getElementById('ageChart').getContext('2d');
+        new Chart(ageCtx, {
+            type: 'bar',
+            data: {
+                labels: ['5.0 tahun', '5.5 tahun', '6.0 tahun', '6.5 tahun', '7.0 tahun'],
+                datasets: [{
+                    label: 'Jumlah Siswa',
+                    data: [3, 5, 8, 6, 3],
+                    backgroundColor: '#3B82F6',
+                    borderColor: '#1D4ED8',
+                    borderWidth: 1
+                }]
+            },
+            options: {
+                responsive: true,
+                maintainAspectRatio: false,
+                scales: {
+                    y: {
+                        beginAtZero: true,
+                        ticks: {
+                            stepSize: 1
+                        }
+                    }
+                },
+                plugins: {
+                    legend: {
+                        display: false
+                    }
+                }
+            }
+        });
+    </script>
+</body>
+</html>
